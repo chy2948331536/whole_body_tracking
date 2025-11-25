@@ -40,7 +40,9 @@
       "justMyCode": false,
       "args": [
         "--registry_name",
-        "q2948331536-gdut-org/wandb-registry-motions/${input:motionName}"
+        "q2948331536-gdut-org/wandb-registry-motions/${input:motionName}",
+        "--robot",
+        "${input:robotType}"
       ],
       "presentation": {
         "echo": true,
