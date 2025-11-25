@@ -30,6 +30,7 @@ parser.add_argument(
 )
 parser.add_argument("--output_name", type=str, required=True, help="The name of the motion npz file.")
 parser.add_argument("--output_fps", type=int, default=50, help="The fps of the output motion.")
+parser.add_argument("--robot", type=str, default="g1", choices=["g1", "go1"], help="Robot type to use (default: g1)")
 
 # append AppLauncher cli args
 AppLauncher.add_app_launcher_args(parser)
@@ -56,7 +57,7 @@ from isaaclab.utils.math import axis_angle_from_quat, quat_conjugate, quat_mul, 
 # Pre-defined configs
 ##
 from whole_body_tracking.robots.g1 import G1_CYLINDER_CFG
-
+from whole_body_tracking.robots.go1 import UNITREE_GO1_CFG
 
 @configclass
 class ReplayMotionsSceneCfg(InteractiveSceneCfg):
@@ -74,7 +75,7 @@ class ReplayMotionsSceneCfg(InteractiveSceneCfg):
         ),
     )
 
-    # articulation
+    # articulation - will be set dynamically based on robot selection
     robot: ArticulationCfg = G1_CYLINDER_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
 
@@ -313,22 +314,28 @@ def run_simulator(sim: sim_utils.SimulationContext, scene: InteractiveScene, joi
 
 def main():
     """Main function."""
-    # Load kit helper
-    sim_cfg = sim_utils.SimulationCfg(device=args_cli.device)
-    sim_cfg.dt = 1.0 / args_cli.output_fps
-    sim = SimulationContext(sim_cfg)
-    # Design scene
-    scene_cfg = ReplayMotionsSceneCfg(num_envs=1, env_spacing=2.0)
-    scene = InteractiveScene(scene_cfg)
-    # Play the simulator
-    sim.reset()
-    # Now we are ready!
-    print("[INFO]: Setup complete...")
-    # Run the simulator
-    run_simulator(
-        sim,
-        scene,
-        joint_names=[
+    # Select robot configuration
+    if args_cli.robot == "go1":
+        robot_cfg = UNITREE_GO1_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+        # GO1 joint names (4 legs × 3 joints each)
+        joint_names = [
+            "FL_hip_joint",
+            "FL_thigh_joint",
+            "FL_calf_joint",
+            "FR_hip_joint",
+            "FR_thigh_joint",
+            "FR_calf_joint",
+            "RL_hip_joint",
+            "RL_thigh_joint",
+            "RL_calf_joint",
+            "RR_hip_joint",
+            "RR_thigh_joint",
+            "RR_calf_joint",
+        ]
+    else:  # default to g1
+        robot_cfg = G1_CYLINDER_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+        # G1 joint names (full body)
+        joint_names = [
             "left_hip_pitch_joint",
             "left_hip_roll_joint",
             "left_hip_yaw_joint",
@@ -358,7 +365,25 @@ def main():
             "right_wrist_roll_joint",
             "right_wrist_pitch_joint",
             "right_wrist_yaw_joint",
-        ],
+        ]
+    
+    # Load kit helper
+    sim_cfg = sim_utils.SimulationCfg(device=args_cli.device)
+    sim_cfg.dt = 1.0 / args_cli.output_fps
+    sim = SimulationContext(sim_cfg)
+    # Design scene
+    scene_cfg = ReplayMotionsSceneCfg(num_envs=1, env_spacing=2.0)
+    scene_cfg.robot = robot_cfg
+    scene = InteractiveScene(scene_cfg)
+    # Play the simulator
+    sim.reset()
+    # Now we are ready!
+    print(f"[INFO]: Setup complete with robot: {args_cli.robot}...")
+    # Run the simulator
+    run_simulator(
+        sim,
+        scene,
+        joint_names=joint_names,
     )
 
 

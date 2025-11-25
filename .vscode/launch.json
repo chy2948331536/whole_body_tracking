@@ -1,0 +1,293 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Motion Preprocessing - CSV to NPZ",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/csv_to_npz.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": [
+        "--input_file",
+        "${input:motionFile}",
+        "--input_fps",
+        "30",
+        "--output_name",
+        "${input:outputName}",
+        "--robot",
+        "${input:robotType}",
+        "--headless"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false
+      },
+      "env": {
+        "WANDB_ORG": "q2948331536-gdut",
+        // "WANDB_ENTITY": "your-organization"
+      }
+    },
+    {
+      "name": "Replay Motion from Registry",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/replay_npz.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": [
+        "--registry_name",
+        "q2948331536-gdut-org/wandb-registry-motions/${input:motionName}",
+        "--robot",
+        "${input:robotType}"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "env": {
+        "WANDB_ORG": "q2948331536-gdut",
+        // "WANDB_ENTITY": "your-organization"
+      }
+    },
+    {
+      "name": "Train Policy - Universal",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/rsl_rl/train.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": [
+        "--task",
+        "${input:taskType}",
+        "--registry_name",
+        "q2948331536-gdut-org/wandb-registry-motions/${input:motionName}",
+        "--headless",
+        "--logger",
+        "wandb",
+        "--log_project_name",
+        "beyondmimic",
+        "--run_name",
+        "${input:taskType}",
+        "--device",
+        "${input:device}"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "env": {
+        "WANDB_ORG": "q2948331536-gdut",
+        "WANDB_ENTITY": "q2948331536-gdut"
+      }
+    },
+    {
+      "name": "Train Policy - G1",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/rsl_rl/train.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": [
+        "--task",
+        "Tracking-Flat-G1-v0",
+        "--registry_name",
+        "q2948331536-gdut-org/wandb-registry-motions/${input:motionName}",
+        "--headless",
+        "--logger",
+        "wandb",
+        "--log_project_name",
+        "beyondmimic",
+        "--run_name",
+        "g1",
+        "--device",
+        "${input:device}"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "env": {
+        "WANDB_ORG": "q2948331536-gdut",
+        "WANDB_ENTITY": "q2948331536-gdut"
+      }
+    },
+    {
+      "name": "Train Policy - GO2",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/rsl_rl/train.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": [
+        "--task",
+        "Tracking-Flat-GO2-v0",
+        "--registry_name",
+        "${env:WANDB_ORG}-org/wandb-registry-motions/${input:motionName}",
+        "--headless",
+        "--logger",
+        "wandb",
+        "--log_project_name",
+        "${input:projectName}",
+        "--run_name",
+        "${input:runName}"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "env": {
+        "WANDB_ORG": "your-organization",
+        "WANDB_ENTITY": "your-organization"
+      }
+    },
+    {
+      "name": "Play Trained Policy - Universal",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/rsl_rl/play.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": [
+        "--task",
+        "${input:taskType}",
+        "--num_envs",
+        "${input:numEnvs}",
+        "--wandb_path",
+        "${input:wandbPath}"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "env": {
+        "WANDB_ORG": "q2948331536-gdut",
+        "WANDB_ENTITY": "q2948331536-gdut"
+      }
+    },
+    {
+      "name": "Upload NPZ to Registry",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/upload_npz.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": [
+        "--input_file",
+        "${input:npzFile}",
+        "--motion_name",
+        "${input:motionName}"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "env": {
+        "WANDB_ORG": "your-organization",
+        "WANDB_ENTITY": "your-organization"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "motionFile",
+      "type": "promptString",
+      "description": "Input CSV motion file path (e.g., dance1_subject3.csv)",
+      "default": "dance1_subject3.csv"
+    },
+    {
+      "id": "outputName",
+      "type": "promptString",
+      "description": "Output motion name for WandB registry (e.g., dance1_subject3)",
+      "default": "dance1_subject3"
+    },
+    {
+      "id": "motionName",
+      "type": "promptString",
+      "description": "Motion name (will auto-complete as: ${WANDB_ORG}-org/wandb-registry-motions/motion_name)",
+      "default": "dance1_subject3"
+    },
+    {
+      "id": "projectName",
+      "type": "promptString",
+      "description": "WandB project name",
+      "default": "BeyondMimic-Training"
+    },
+    {
+      "id": "runName",
+      "type": "promptString",
+      "description": "WandB run name",
+      "default": "experiment_1"
+    },
+    {
+      "id": "taskType",
+      "type": "pickString",
+      "description": "Select robot task type",
+      "options": [
+        "Tracking-Flat-G1-v0",
+        "Tracking-Flat-Go1-v0",
+        "Tracking-Flat-Go1-Wo-State-Estimation-v0",
+        "Tracking-Flat-Go1-Low-Freq-v0",
+        "Tracking-Flat-GO2-v0",
+        "Tracking-Flat-Humanoid-v0"
+      ],
+      "default": "Tracking-Flat-G1-v0"
+    },
+    {
+      "id": "numEnvs",
+      "type": "promptString",
+      "description": "Number of parallel environments",
+      "default": "2"
+    },
+    {
+      "id": "wandbPath",
+      "type": "promptString",
+      "description": "WandB run path (format: your_organization/project_name/run_id)",
+      "default": "your_organization/project_name/run_id"
+    },
+    {
+      "id": "npzFile",
+      "type": "promptString",
+      "description": "Path to NPZ motion file",
+      "default": "motion_name.npz"
+    },
+    {
+      "id": "robotType",
+      "type": "pickString",
+      "description": "Select robot type",
+      "options": [
+        "g1",
+        "go1"
+      ],
+      "default": "g1"
+    },
+    {
+      "id": "device",
+      "type": "pickString",
+      "description": "Select device (CUDA device or CPU)",
+      "options": [
+        "cuda:0",
+        "cuda:1",
+        "cuda:2",
+        "cuda:3",
+        "cpu"
+      ],
+      "default": "cuda:3"
+    }
+  ]
+}
