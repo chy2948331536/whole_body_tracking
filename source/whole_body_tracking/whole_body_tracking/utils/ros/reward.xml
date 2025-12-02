@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+ <tabbed_widget name="Main Window" parent="main_window">
+  <Tab tab_name="desired_projected_gravity" containers="1">
+   <Container>
+    <DockSplitter count="1" orientation="-" sizes="1">
+     <DockArea name="...">
+      <plot style="Lines" flip_x="false" flip_y="false" mode="XYPlot">
+       <range right="4.774001" left="1.625999" top="1.049775" bottom="-1.049995"/>
+       <limitY/>
+       <curve name="/desired_projected_gravity/[header/stamp;desired_projected_gravity_node1/position]" curve_y="/desired_projected_gravity/desired_projected_gravity_node1/position" color="#ff7f0e" curve_x="/desired_projected_gravity/header/stamp"/>
+       <curve name="/desired_projected_gravity/[header/stamp;desired_projected_gravity_node2/position]" curve_y="/desired_projected_gravity/desired_projected_gravity_node2/position" color="#f14cc1" curve_x="/desired_projected_gravity/header/stamp"/>
+       <curve name="/desired_projected_gravity/[header/stamp;desired_projected_gravity_node3/position]" curve_y="/desired_projected_gravity/desired_projected_gravity_node3/position" color="#9467bd" curve_x="/desired_projected_gravity/header/stamp"/>
+      </plot>
+     </DockArea>
+    </DockSplitter>
+   </Container>
+  </Tab>
+  <Tab tab_name="current_projected_gravity" containers="1">
+   <Container>
+    <DockSplitter count="1" orientation="-" sizes="1">
+     <DockArea name="...">
+      <plot style="Lines" flip_x="false" flip_y="false" mode="XYPlot">
+       <range right="4.755018" left="1.644982" top="1.025735" bottom="-1.048711"/>
+       <limitY/>
+       <curve name="/current_projected_gravity/[header/stamp;current_projected_gravity_node1/position]" curve_y="/current_projected_gravity/current_projected_gravity_node1/position" color="#bcbd22" curve_x="/current_projected_gravity/header/stamp"/>
+       <curve name="/current_projected_gravity/[header/stamp;current_projected_gravity_node2/position]" curve_y="/current_projected_gravity/current_projected_gravity_node2/position" color="#1f77b4" curve_x="/current_projected_gravity/header/stamp"/>
+       <curve name="/current_projected_gravity/[header/stamp;current_projected_gravity_node3/position]" curve_y="/current_projected_gravity/current_projected_gravity_node3/position" color="#d62728" curve_x="/current_projected_gravity/header/stamp"/>
+      </plot>
+     </DockArea>
+    </DockSplitter>
+   </Container>
+  </Tab>
+  <Tab tab_name="actions_symmetry" containers="1">
+   <Container>
+    <DockSplitter count="1" orientation="-" sizes="1">
+     <DockArea name="...">
+      <plot style="Lines" flip_x="false" flip_y="false" mode="XYPlot">
+       <range right="7.460259" left="-1.060259" top="5.520572" bottom="-0.080389"/>
+       <limitY/>
+       <curve name="/actions_symmetry/[header/stamp;actions_symmetry_node1/position]" curve_y="/actions_symmetry/actions_symmetry_node1/position" color="#1ac938" curve_x="/actions_symmetry/header/stamp"/>
+      </plot>
+     </DockArea>
+    </DockSplitter>
+   </Container>
+  </Tab>
+  <Tab tab_name="ang_vel_y" containers="1">
+   <Container>
+    <DockSplitter count="1" orientation="-" sizes="1">
+     <DockArea name="...">
+      <plot style="Lines" flip_x="false" flip_y="false" mode="XYPlot">
+       <range right="14.653102" left="-8.253102" top="7.560000" bottom="-7.560000"/>
+       <limitY/>
+       <curve name="/ang_vel_y/[header/stamp;ang_vel_y_node1/position]" curve_y="/ang_vel_y/ang_vel_y_node1/position" color="#1ac938" curve_x="/ang_vel_y/header/stamp"/>
+       <curve name="/ang_vel_y/[header/stamp;ang_vel_y_node2/position]" curve_y="/ang_vel_y/ang_vel_y_node2/position" color="#bcbd22" curve_x="/ang_vel_y/header/stamp"/>
+       <curve name="/ang_vel_y/[header/stamp;ang_vel_y_node3/position]" curve_y="/ang_vel_y/ang_vel_y_node3/position" color="#1f77b4" curve_x="/ang_vel_y/header/stamp"/>
+      </plot>
+     </DockArea>
+    </DockSplitter>
+   </Container>
+  </Tab>
+  <Tab tab_name="lin_vel_z" containers="1">
+   <Container>
+    <DockSplitter count="1" orientation="-" sizes="1">
+     <DockArea name="...">
+      <plot style="Lines" flip_x="false" flip_y="false" mode="XYPlot">
+       <range right="7.628329" left="-1.228329" top="2.950724" bottom="-2.895407"/>
+       <limitY/>
+       <curve name="/lin_vel_z/[header/stamp;lin_vel_z_node1/position]" curve_y="/lin_vel_z/lin_vel_z_node1/position" color="#f14cc1" curve_x="/lin_vel_z/header/stamp"/>
+      </plot>
+     </DockArea>
+    </DockSplitter>
+   </Container>
+  </Tab>
+  <Tab tab_name="height_control" containers="1">
+   <Container>
+    <DockSplitter count="1" orientation="-" sizes="1">
+     <DockArea name="...">
+      <plot style="Lines" flip_x="false" flip_y="false" mode="XYPlot">
+       <range right="4.502000" left="1.898000" top="0.898210" bottom="-0.838702"/>
+       <limitY/>
+       <curve name="/height_control/he[ader/stamp;ight_control_node1/position]" curve_y="/height_control/height_control_node1/position" color="#9467bd" curve_x="/height_control/header/stamp"/>
+      </plot>
+     </DockArea>
+    </DockSplitter>
+   </Container>
+  </Tab>
+  <Tab tab_name="gravity_y" containers="1">
+   <Container>
+    <DockSplitter count="1" orientation="-" sizes="1">
+     <DockArea name="...">
+      <plot style="Lines" flip_x="false" flip_y="false" mode="XYPlot">
+       <range right="4.502000" left="1.898000" top="0.998592" bottom="-0.738320"/>
+       <limitY/>
+       <curve name="/gravity_y/[header/stamp;gravity_y_node1/position]" curve_y="/gravity_y/gravity_y_node1/position" color="#17becf" curve_x="/gravity_y/header/stamp"/>
+      </plot>
+     </DockArea>
+    </DockSplitter>
+   </Container>
+  </Tab>
+  <Tab tab_name="feet_distance" containers="1">
+   <Container>
+    <DockSplitter count="1" orientation="-" sizes="1">
+     <DockArea name="...">
+      <plot style="Lines" flip_x="false" flip_y="false" mode="XYPlot">
+       <range right="4.502000" left="1.898000" top="0.887029" bottom="-0.849883"/>
+       <limitY/>
+       <curve name="/feet_distance/[header/stamp;feet_distance_node1/position]" curve_y="/feet_distance/feet_distance_node1/position" color="#bcbd22" curve_x="/feet_distance/header/stamp"/>
+       <curve name="/feet_distance/[header/stamp;feet_distance_node2/position]" curve_y="/feet_distance/feet_distance_node2/position" color="#1f77b4" curve_x="/feet_distance/header/stamp"/>
+       <curve name="/feet_distance/[header/stamp;feet_distance_node3/position]" curve_y="/feet_distance/feet_distance_node3/position" color="#d62728" curve_x="/feet_distance/header/stamp"/>
+       <curve name="/feet_distance/[header/stamp;feet_distance_node4/position]" curve_y="/feet_distance/feet_distance_node4/position" color="#1ac938" curve_x="/feet_distance/header/stamp"/>
+      </plot>
+     </DockArea>
+    </DockSplitter>
+   </Container>
+  </Tab>
+  <Tab tab_name="torque" containers="1">
+   <Container>
+    <DockSplitter count="1" orientation="-" sizes="1">
+     <DockSplitter count="2" orientation="|" sizes="0.500495;0.499505">
+      <DockSplitter count="2" orientation="-" sizes="0.500684;0.499316">
+       <DockArea name="...">
+        <plot style="Lines" flip_x="false" flip_y="false" mode="TimeSeries">
+         <range right="1763020083.912874" left="1763020078.928472" top="24.675000" bottom="-24.675000"/>
+         <limitY/>
+         <curve name="/torque/torque_node1/position" color="#f14cc1"/>
+         <curve name="/torque/torque_node2/position" color="#9467bd"/>
+         <curve name="/torque/torque_node3/position" color="#17becf"/>
+         <curve name="/torque/torque_node4/position" color="#bcbd22"/>
+        </plot>
+       </DockArea>
+       <DockArea name="...">
+        <plot style="Lines" flip_x="false" flip_y="false" mode="TimeSeries">
+         <range right="1763020083.912874" left="1763020078.928472" top="24.470753" bottom="-16.300876"/>
+         <limitY/>
+         <curve name="/torque/torque_node10/position" color="#f14cc1"/>
+         <curve name="/torque/torque_node11/position" color="#9467bd"/>
+         <curve name="/torque/torque_node12/position" color="#17becf"/>
+         <curve name="/torque/torque_node9/position" color="#bcbd22"/>
+        </plot>
+       </DockArea>
+      </DockSplitter>
+      <DockSplitter count="2" orientation="-" sizes="0.500684;0.499316">
+       <DockArea name="...">
+        <plot style="Lines" flip_x="false" flip_y="false" mode="TimeSeries">
+         <range right="1763020083.912874" left="1763020078.928472" top="22.505860" bottom="-24.622094"/>
+         <limitY/>
+         <curve name="/torque/torque_node5/position" color="#1f77b4"/>
+         <curve name="/torque/torque_node6/position" color="#d62728"/>
+         <curve name="/torque/torque_node7/position" color="#1ac938"/>
+         <curve name="/torque/torque_node8/position" color="#ff7f0e"/>
+        </plot>
+       </DockArea>
+       <DockArea name="...">
+        <plot style="Lines" flip_x="false" flip_y="false" mode="TimeSeries">
+         <range right="1.000000" left="0.000000" top="1.000000" bottom="0.000000"/>
+         <limitY/>
+        </plot>
+       </DockArea>
+      </DockSplitter>
+     </DockSplitter>
+    </DockSplitter>
+   </Container>
+  </Tab>
+  <currentTabIndex index="3"/>
+ </tabbed_widget>
+ <use_relative_time_offset enabled="0"/>
+ <!-- - - - - - - - - - - - - - - -->
+ <!-- - - - - - - - - - - - - - - -->
+ <Plugins>
+  <plugin ID="DataLoad CSV">
+   <parameters time_axis="" delimiter="0"/>
+  </plugin>
+  <plugin ID="DataLoad MCAP"/>
+  <plugin ID="DataLoad ROS2 bags">
+   <use_header_stamp value="false"/>
+   <discard_large_arrays value="true"/>
+   <max_array_size value="100"/>
+   <boolean_strings_to_number value="true"/>
+   <remove_suffix_from_strings value="true"/>
+   <selected_topics value=""/>
+  </plugin>
+  <plugin ID="DataLoad ULog"/>
+  <plugin ID="ROS2 Topic Subscriber">
+   <use_header_stamp value="false"/>
+   <discard_large_arrays value="true"/>
+   <max_array_size value="100"/>
+   <boolean_strings_to_number value="true"/>
+   <remove_suffix_from_strings value="true"/>
+   <selected_topics value="/actions_symmetry;/ang_vel_y;/current_projected_gravity;/desired_projected_gravity;/feet_distance;/gravity_y;/height_control;/lin_vel_z;/torque;/stage_transfer"/>
+  </plugin>
+  <plugin ID="UDP Server"/>
+  <plugin ID="WebSocket Server"/>
+  <plugin ID="ZMQ Subscriber"/>
+  <plugin ID="Fast Fourier Transform"/>
+  <plugin ID="Quaternion to RPY"/>
+  <plugin ID="Reactive Script Editor">
+   <library code="--[[ Helper function to create a series from arrays&#xa;&#xa; new_series: a series previously created with ScatterXY.new(name)&#xa; prefix:     prefix of the timeseries, before the index of the array&#xa; suffix_X:   suffix to complete the name of the series containing the X value. If [nil], use the index of the array.&#xa; suffix_Y:   suffix to complete the name of the series containing the Y value&#xa; timestamp:   usually the tracker_time variable&#xa;              &#xa; Example:&#xa; &#xa; Assuming we have multiple series in the form:&#xa; &#xa;   /trajectory/node.{X}/position/x&#xa;   /trajectory/node.{X}/position/y&#xa;   &#xa; where {N} is the index of the array (integer). We can create a reactive series from the array with:&#xa; &#xa;   new_series = ScatterXY.new(&quot;my_trajectory&quot;) &#xa;   CreateSeriesFromArray( new_series, &quot;/trajectory/node&quot;, &quot;position/x&quot;, &quot;position/y&quot;, tracker_time );&#xa;--]]&#xa;&#xa;function CreateSeriesFromArray( new_series, prefix, suffix_X, suffix_Y, timestamp )&#xa;  &#xa;  --- clear previous values&#xa;  new_series:clear()&#xa;  &#xa;  --- Append points to new_series&#xa;  index = 0&#xa;  while(true) do&#xa;&#xa;    x = index;&#xa;    -- if not nil, get the X coordinate from a series&#xa;    if suffix_X ~= nil then &#xa;      series_x = TimeseriesView.find( string.format( &quot;%s.%d/%s&quot;, prefix, index, suffix_X) )&#xa;      if series_x == nil then break end&#xa;      x = series_x:atTime(timestamp)&#x9; &#xa;    end&#xa;    &#xa;    series_y = TimeseriesView.find( string.format( &quot;%s.%d/%s&quot;, prefix, index, suffix_Y) )&#xa;    if series_y == nil then break end &#xa;    y = series_y:atTime(timestamp)&#xa;    &#xa;    new_series:push_back(x,y)&#xa;    index = index+1&#xa;  end&#xa;end&#xa;&#xa;--[[ Similar to the built-in function GetSeriesNames(), but select only the names with a give prefix. --]]&#xa;&#xa;function GetSeriesNamesByPrefix(prefix)&#xa;  -- GetSeriesNames(9 is a built-in function&#xa;  all_names = GetSeriesNames()&#xa;  filtered_names = {}&#xa;  for i, name in ipairs(all_names)  do&#xa;    -- check the prefix&#xa;    if name:find(prefix, 1, #prefix) then&#xa;      table.insert(filtered_names, name);&#xa;    end&#xa;  end&#xa;  return filtered_names&#xa;end&#xa;&#xa;--[[ Modify an existing series, applying offsets to all their X and Y values&#xa;&#xa; series: an existing timeseries, obtained with TimeseriesView.find(name)&#xa; delta_x: offset to apply to each x value&#xa; delta_y: offset to apply to each y value &#xa;  &#xa;--]]&#xa;&#xa;function ApplyOffsetInPlace(series, delta_x, delta_y)&#xa;  -- use C++ indices, not Lua indices&#xa;  for index=0, series:size()-1 do&#xa;    x,y = series:at(index)&#xa;    series:set(index, x + delta_x, y + delta_y)&#xa;  end&#xa;end&#xa;"/>
+   <scripts/>
+  </plugin>
+  <plugin ID="CSV Exporter"/>
+  <plugin ID="ROS2 Topic Re-Publisher"/>
+ </Plugins>
+ <!-- - - - - - - - - - - - - - - -->
+ <previouslyLoaded_Datafiles/>
+ <previouslyLoaded_Streamer name="ROS2 Topic Subscriber"/>
+ <!-- - - - - - - - - - - - - - - -->
+ <customMathEquations/>
+ <snippets/>
+ <!-- - - - - - - - - - - - - - - -->
+</root>
+

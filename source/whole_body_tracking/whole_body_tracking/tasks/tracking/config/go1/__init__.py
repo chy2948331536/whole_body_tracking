@@ -17,11 +17,31 @@ gym.register(
 )
 
 gym.register(
+    id="Tracking-Flat-Go1-v0-play",
+    entry_point="whole_body_tracking.tasks.tracking.config.go1.unitree_go1_manager_env:UnitreeGo1EnvPlay",
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": flat_env_cfg.Go1FlatEnvCfg,
+        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:Go1FlatPPORunnerCfg",
+    },
+)
+
+gym.register(
     id="Tracking-Flat-Go1-Wo-State-Estimation-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": flat_env_cfg.Go1FlatWoStateEstimationEnvCfg,
+        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:Go1FlatPPORunnerCfg",
+    },
+)
+
+gym.register(
+    id="Tracking-Flat-Go1-Wo-State-Estimation-v0-play",
+    entry_point="whole_body_tracking.tasks.tracking.config.go1.unitree_go1_manager_env:UnitreeGo1EnvPlay",
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": flat_env_cfg.Go1FlatWoStateEstimationEnvCfg_play,
         "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:Go1FlatPPORunnerCfg",
     },
 )

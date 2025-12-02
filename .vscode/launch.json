@@ -165,7 +165,11 @@
         "--num_envs",
         "${input:numEnvs}",
         "--wandb_path",
-        "${input:wandbPath}"
+        "${input:wandbPath}",
+        "--onnx_path",
+        "${input:onnxPath}",
+        "--device","cpu",
+        "--motion_file", "${workspaceFolder}/artifacts/go1_description_with_foot:v1/motion.npz"
       ],
       "presentation": {
         "echo": true,
@@ -241,7 +245,9 @@
       "options": [
         "Tracking-Flat-G1-v0",
         "Tracking-Flat-Go1-v0",
+        "Tracking-Flat-Go1-v0-play",
         "Tracking-Flat-Go1-Wo-State-Estimation-v0",
+        "Tracking-Flat-Go1-Wo-State-Estimation-v0-play",
         "Tracking-Flat-Go1-Low-Freq-v0",
         "Tracking-Flat-GO2-v0",
         "Tracking-Flat-Humanoid-v0"
@@ -257,8 +263,14 @@
     {
       "id": "wandbPath",
       "type": "promptString",
-      "description": "WandB run path (format: your_organization/project_name/run_id)",
-      "default": "your_organization/project_name/run_id"
+      "description": "WandB run path (leave empty to use local checkpoint, format: your_organization/project_name/run_id)",
+      "default": ""
+    },
+    {
+      "id": "onnxPath",
+      "type": "promptString",
+      "description": "Path to ONNX model file (leave empty to use PyTorch policy)",
+      "default": ""
     },
     {
       "id": "npzFile",

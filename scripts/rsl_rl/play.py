@@ -20,11 +20,26 @@ parser.add_argument(
 parser.add_argument("--num_envs", type=int, default=None, help="Number of environments to simulate.")
 parser.add_argument("--task", type=str, default=None, help="Name of the task.")
 parser.add_argument("--motion_file", type=str, default=None, help="Path to the motion file.")
+parser.add_argument("--onnx_path", type=str, default=None, help="Path to the ONNX model file. If provided, uses ONNX for inference.")
 # append RSL-RL cli arguments
 cli_args.add_rsl_rl_args(parser)
 # append AppLauncher cli args
 AppLauncher.add_app_launcher_args(parser)
 args_cli, hydra_args = parser.parse_known_args()
+
+# Convert empty strings or unresolved VS Code variables to None for optional arguments
+def _normalize_optional_arg(value):
+    """Convert empty strings or unresolved ${input:xxx} to None."""
+    if value is None or value == "":
+        return None
+    if isinstance(value, str) and value.startswith("${input:"):
+        return None
+    return value
+
+args_cli.wandb_path = _normalize_optional_arg(args_cli.wandb_path)
+args_cli.onnx_path = _normalize_optional_arg(args_cli.onnx_path)
+args_cli.motion_file = _normalize_optional_arg(args_cli.motion_file)
+
 # always enable cameras to record video
 if args_cli.video:
     args_cli.enable_cameras = True
@@ -60,6 +75,7 @@ from isaaclab_tasks.utils.hydra import hydra_task_config
 # Import extensions to set up environment tasks
 import whole_body_tracking.tasks  # noqa: F401
 from whole_body_tracking.utils.exporter import attach_onnx_metadata, export_motion_policy_as_onnx
+from whole_body_tracking.utils.onnx_infer import OnnxPolicy
 
 
 @hydra_task_config(args_cli.task, "rsl_rl_cfg_entry_point")
@@ -139,7 +155,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     ppo_runner.load(resume_path)
 
     # obtain the trained policy for inference
-    policy = ppo_runner.get_inference_policy(device=env.unwrapped.device)
+    # policy = ppo_runner.get_inference_policy(device=env.unwrapped.device)
 
     # export policy to onnx/jit
     export_model_dir = os.path.join(os.path.dirname(resume_path), "exported")
@@ -152,6 +168,19 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         filename="policy.onnx",
     )
     attach_onnx_metadata(env.unwrapped, args_cli.wandb_path if args_cli.wandb_path else "none", export_model_dir)
+
+    # Choose policy based on --onnx_path flag
+    if args_cli.onnx_path:
+        policy = OnnxPolicy(args_cli.onnx_path, device=str(env.unwrapped.device))
+        print(f"[INFO] Using ONNX policy for inference")
+    else:
+        # obtain the trained policy for inference
+        policy = ppo_runner.get_inference_policy(device=env.unwrapped.device)
+        print(f"[INFO] Using PyTorch policy for inference")
+
+    # Get motion command term for accessing time_steps and robot anchor quat
+    motion_command_term = env.unwrapped.command_manager.get_term("motion")
+
     # reset environment
     obs, _ = env.get_observations()
     timestep = 0
@@ -160,7 +189,13 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         # run everything in inference mode
         with torch.inference_mode():
             # agent stepping
-            actions = policy(obs)
+            if args_cli.onnx_path:
+                # motion_command_term.time_steps = torch.ones_like(motion_command_term.time_steps) * 7
+                mimic_time_steps = motion_command_term.time_steps
+                robot_anchor_quat_w = motion_command_term.robot.data.body_quat_w[:, motion_command_term.robot_anchor_body_index]
+                actions = policy(obs, mimic_time_steps, robot_anchor_quat_w)
+            else:
+                actions = policy(obs)
             # env stepping
             obs, _, _, _ = env.step(actions)
         if args_cli.video:
