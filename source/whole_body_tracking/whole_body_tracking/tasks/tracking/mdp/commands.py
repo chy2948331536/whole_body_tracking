@@ -248,7 +248,7 @@ class MotionCommand(CommandTerm):
         if hasattr(self._env, 'play_mode'):
             self.time_steps[env_ids] = 0
         else:
-            self._adaptive_sampling(env_ids)
+            self.time_steps[env_ids] = 0
 
         root_pos = self.body_pos_w[:, 0].clone()
         root_ori = self.body_quat_w[:, 0].clone()
