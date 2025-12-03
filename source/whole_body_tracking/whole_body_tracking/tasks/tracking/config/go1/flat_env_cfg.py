@@ -2,6 +2,7 @@ from isaaclab.managers import EventTermCfg as EventTerm
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.utils import configclass
+from isaaclab.managers import RewardTermCfg as RewTerm
 
 from whole_body_tracking.robots.go1 import GO1_ACTION_SCALE, UNITREE_GO1_CFG
 from whole_body_tracking.tasks.tracking.config.go1.agents.rsl_rl_ppo_cfg import LOW_FREQ_SCALE
@@ -89,6 +90,8 @@ class Go1FlatEnvCfg(TrackingEnvCfg):
             },
         )
 
+        self.rewards.dof_acc_l2 = RewTerm(func=mdp.joint_acc_l2, weight=-2.5e-7)
+        self.rewards.dof_torques_l2 = RewTerm(func=mdp.joint_torques_l2, weight=-1.0e-5)
 
 @configclass
 class Go1FlatWoStateEstimationEnvCfg(Go1FlatEnvCfg):
