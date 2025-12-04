@@ -164,12 +164,14 @@
         "${input:taskType}",
         "--num_envs",
         "${input:numEnvs}",
-        "--wandb_path",
-        "${input:wandbPath}",
+        // "--wandb_path",
+        // "${input:wandbPath}",
         "--onnx_path",
         "${input:onnxPath}",
         "--device","cpu",
-        "--motion_file", "${workspaceFolder}/artifacts/go1_description_with_foot:v1/motion.npz"
+        "--motion_file", "${workspaceFolder}/artifacts/go1_description_with_foot:v2/motion.npz",
+        "--load_run", "${input:loadRun}",
+        "--video"
       ],
       "presentation": {
         "echo": true,
@@ -300,6 +302,12 @@
         "cpu"
       ],
       "default": "cuda:3"
+    },
+    {
+      "id": "loadRun",
+      "type": "promptString",
+      "description": "Local run folder name (e.g., 2025-12-03_18-34-58_Tracking-Flat-Go1-v0)",
+      "default": "2025-12-03_18-34-58_Tracking-Flat-Go1-Wo-State-Estimation-v0"
     }
   ]
 }
