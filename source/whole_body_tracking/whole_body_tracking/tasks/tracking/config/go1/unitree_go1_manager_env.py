@@ -63,7 +63,7 @@ class UnitreeGo1EnvPlay(ManagerBasedRLEnv):
                 self.reward_nodes[name].cb([avg_increment], current_time)
         
         # Print the reward increments dictionary
-        pprint(reward_increments)
+        # pprint(reward_increments)
         
         # Update previous episode sums for next call
         self._prev_episode_sums = {

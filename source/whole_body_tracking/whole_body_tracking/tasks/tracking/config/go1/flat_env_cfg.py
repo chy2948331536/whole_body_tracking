@@ -94,6 +94,20 @@ class Go1FlatEnvCfg(TrackingEnvCfg):
         self.rewards.dof_torques_l2 = RewTerm(func=mdp.joint_torques_l2, weight=-1.0e-5)
         self.rewards.motion_global_anchor_pos.weight = 1.0
         self.rewards.motion_body_pos.weight = 2.0
+        # Contact reward based on motion data foot height
+        self.rewards.motion_contact = RewTerm(
+            func=mdp.motion_contact_reward,
+            weight=0.1,
+            params={
+                "command_name": "motion",
+                "contact_cfg": SceneEntityCfg(
+                    "contact_forces",
+                    body_names=["FL_foot", "FR_foot", "RL_foot", "RR_foot"],
+                ),
+                "height_threshold": 0.05,
+                "force_threshold": 1.0,
+            },
+        )
 @configclass
 class Go1FlatWoStateEstimationEnvCfg(Go1FlatEnvCfg):
     def __post_init__(self):
