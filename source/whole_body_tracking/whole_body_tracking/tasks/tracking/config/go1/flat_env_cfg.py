@@ -92,7 +92,8 @@ class Go1FlatEnvCfg(TrackingEnvCfg):
 
         self.rewards.dof_acc_l2 = RewTerm(func=mdp.joint_acc_l2, weight=-2.5e-7)
         self.rewards.dof_torques_l2 = RewTerm(func=mdp.joint_torques_l2, weight=-1.0e-5)
-
+        self.rewards.motion_global_anchor_pos.weight = 1.0
+        self.rewards.motion_body_pos.weight = 2.0
 @configclass
 class Go1FlatWoStateEstimationEnvCfg(Go1FlatEnvCfg):
     def __post_init__(self):
