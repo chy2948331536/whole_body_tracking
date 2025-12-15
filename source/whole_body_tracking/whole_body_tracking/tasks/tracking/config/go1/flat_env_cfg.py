@@ -9,6 +9,25 @@ from whole_body_tracking.tasks.tracking.config.go1.agents.rsl_rl_ppo_cfg import 
 from whole_body_tracking.tasks.tracking.tracking_env_cfg import TrackingEnvCfg
 
 import whole_body_tracking.tasks.tracking.mdp as mdp
+import isaaclab.terrains as terrain_gen
+from isaaclab.terrains.terrain_generator_cfg import TerrainGeneratorCfg
+
+GRAVEL_TERRAINS_CFG = TerrainGeneratorCfg(
+    curriculum=False,
+    size=(8.0, 8.0),
+    border_width=20.0,
+    num_rows=10,
+    num_cols=20,
+    horizontal_scale=0.1,
+    vertical_scale=0.005,
+    slope_threshold=0.75,
+    use_cache=False,
+    sub_terrains={
+        "random_rough": terrain_gen.HfRandomUniformTerrainCfg(
+            proportion=0.2, noise_range=(-0.02, 0.02), noise_step=0.01, border_width=0.25
+        )
+    },
+)
 
 
 @configclass
@@ -127,6 +146,20 @@ class Go1FlatWoStateEstimationEnvCfg_play(Go1FlatWoStateEstimationEnvCfg):
         self.viewer.eye = (3.0, 3.0, 2.0)
         self.viewer.lookat = (0.0, 0.0, 0.0)
         self.viewer.origin_type = "world"  # "world" for free camera, "asset_root" to follow robot
+
+@configclass
+class Go1RoughWoStateEstimationEnvCfg(Go1FlatWoStateEstimationEnvCfg):
+    def __post_init__(self):
+        super().__post_init__()
+        self.scene.terrain.terrain_type = "generator"
+        self.scene.terrain.terrain_generator = GRAVEL_TERRAINS_CFG
+
+@configclass
+class Go1RoughWoStateEstimationEnvCfg_play(Go1FlatWoStateEstimationEnvCfg_play):
+    def __post_init__(self):
+        super().__post_init__()
+        self.scene.terrain.terrain_type = "generator"
+        self.scene.terrain.terrain_generator = GRAVEL_TERRAINS_CFG
 
 @configclass
 class Go1FlatLowFreqEnvCfg(Go1FlatEnvCfg):
