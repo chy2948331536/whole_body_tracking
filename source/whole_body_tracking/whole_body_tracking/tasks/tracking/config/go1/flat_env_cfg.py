@@ -111,6 +111,10 @@ class Go1FlatEnvCfg(TrackingEnvCfg):
 
         self.rewards.dof_acc_l2 = RewTerm(func=mdp.joint_acc_l2, weight=-2.5e-7)
         self.rewards.dof_torques_l2 = RewTerm(func=mdp.joint_torques_l2, weight=-1.0e-5)
+        self.rewards.undesired_contacts.params["sensor_cfg"] = SceneEntityCfg(
+            "contact_forces",
+            body_names=[".*thigh", ".*calf", "trunk", ".*hip"],
+        )
         # self.rewards.motion_global_anchor_pos.weight = 1.0
         # self.rewards.motion_body_pos.weight = 2.0
         # Contact reward based on motion data foot height
